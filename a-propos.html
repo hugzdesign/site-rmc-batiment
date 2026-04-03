@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>À propos — RMC Bâtiment | Maçonnerie & Rénovation Normandie</title>
+    <meta
+      name="description"
+      content="Découvrez l'équipe RMC Bâtiment, ses valeurs, ses certifications et son expertise en maçonnerie et rénovation en Normandie depuis 20 ans."
+    />
+    <link rel="icon" href="assets/images/favicon-rmc-batiment.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital@1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f5f4f0;
+        --dark: #1a1a1a;
+        --dark-soft: #2c2c2c;
+        --muted: #6b6b6b;
+        --light: #ffffff;
+        --accent: #b43320;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body { font-family: "DM Sans", sans-serif; background: var(--bg); color: var(--dark); }
+      a { color: inherit; text-decoration: none; }
+      img { max-width: 100%; display: block; }
+      .container { width: min(100% - 2rem, 1240px); margin-inline: auto; }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: #1a1a1a;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .header-inner { min-height: 86px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+      .logo-mark { display: inline-flex; flex-direction: column; line-height: 1; color: #fff; }
+      .brand { font-size: clamp(1.25rem, 2vw, 1.6rem); letter-spacing: 0.08em; font-weight: 500; }
+      .tagline { margin-top: 0.35rem; font-size: 0.58rem; letter-spacing: 0.42em; text-transform: uppercase; opacity: 0.86; }
+      .main-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.4rem; }
+      .main-nav a { color: #fff; font-size: 0.92rem; position: relative; }
+      .main-nav a::after {
+        content: ""; position: absolute; left: 0; right: 0; bottom: -0.35rem; height: 1px;
+        background: #fff; transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease;
+      }
+      .main-nav a:hover::after, .main-nav a.active::after { transform: scaleX(1); }
+      .main-nav a.active { color: var(--accent); }
+
+      section { padding: 64px 0; }
+      .eyebrow {
+        margin: 0 0 0.5rem;
+        color: var(--accent);
+        letter-spacing: 0.18em;
+        font-size: 0.74rem;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+      .title {
+        margin: 0 0 1rem;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+        letter-spacing: 0.02em;
+      }
+      .hook {
+        margin: 0 0 1rem;
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+      }
+      .lead { color: var(--muted); margin: 0; max-width: 72ch; }
+
+      .about-grid { display: flex; flex-direction: column; gap: 1.6rem; margin-top: 32px; }
+      .about-text p { margin: 0 0 1rem; color: #2b2b2b; line-height: 1.7; }
+      .strengths { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+      .strengths li { color: #2b2b2b; }
+      .strengths li::before { content: "✓"; color: var(--accent); margin-right: 0.55rem; font-weight: 700; }
+
+      .media-box {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.15);
+        background: #2a2a2a;
+        min-height: 280px;
+      }
+      .media-box img { width: 100%; height: 100%; object-fit: cover; }
+      .media-box .fallback {
+        position: absolute; inset: 0; display: none; place-items: center;
+        color: var(--accent); font-family: "Bebas Neue", sans-serif; font-size: 4.4rem;
+      }
+      .media-box.is-missing img { display: none; }
+      .media-box.is-missing .fallback { display: grid; }
+      .logo-col { flex-shrink: 0; width: 480px; }
+      .logo-col img { max-width: 480px; width: 100%; height: auto; display: block; }
+
+      #equipe { background: #fff; }
+      .team-head { text-align: center; }
+      .team-head .lead { margin-inline: auto; text-align: center; }
+      .team-grid {
+        margin: 2rem auto 0;
+        max-width: 800px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .team-card {
+        background: #f5f4f0;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+        transition: transform 0.25s ease;
+        text-align: center;
+      }
+      .team-card:hover { transform: translateY(-4px); }
+      .team-card .media-box { min-height: 340px; border-radius: 12px; box-shadow: none; }
+      .team-card h3 { margin: 0.95rem 0 0.25rem; font-family: "Bebas Neue", sans-serif; font-size: 2rem; }
+      .role { color: var(--accent); margin: 0 0 0.6rem; font-size: 0.92rem; }
+      .team-card p { margin: 0; color: var(--muted); }
+      .team-phone {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.7rem;
+        padding: 8px 18px;
+        border: 1px solid #d0ccc6;
+        border-radius: 50px;
+        color: #1a1a1a;
+        font-size: 0.88rem;
+        letter-spacing: 0.03em;
+        transition: all 0.25s ease;
+      }
+      .team-phone:hover {
+        background: #b43320;
+        border-color: #b43320;
+        color: #fff;
+      }
+      .team-phone svg {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+      }
+
+      #valeurs { background: #1a1a1a; color: #fff; }
+      #valeurs .title { color: #fff; }
+      #valeurs .eyebrow, #valeurs .title { text-align: center; }
+      .values-grid {
+        margin-top: 1.8rem;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+      .value-card {
+        background: #2c2c2c;
+        border-top: 3px solid #b43320;
+        border-radius: 12px;
+        padding: 32px;
+        transition: transform 0.25s ease, border-top-color 0.25s ease;
+      }
+      .value-card:hover { transform: translateY(-4px); border-top-color: #b43320; }
+      .icon { width: 30px; height: 30px; margin-bottom: 0.65rem; }
+      .value-card h3 { margin: 0 0 0.45rem; font-family: "Bebas Neue", sans-serif; font-size: 1.8rem; }
+      .value-card p { margin: 0; color: #d0d0d0; }
+
+      #certifications { background: #f5f4f0; }
+      .cert-head { text-align: center; }
+      .cert-head .lead { text-align: center; margin-inline: auto; }
+      .cert-grid {
+        margin-top: 1.8rem;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .cert-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 32px;
+        text-align: center;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        transition: box-shadow 0.25s ease;
+      }
+      .cert-card:hover { box-shadow: 0 16px 30px rgba(0, 0, 0, 0.14); }
+      .cert-card .media-box { min-height: 96px; background: transparent; box-shadow: none; border-radius: 0; }
+      .cert-card img { max-height: 80px; width: auto; margin-inline: auto; }
+      .cert-card h3 { margin: 0.8rem 0 0.35rem; font-family: "Bebas Neue", sans-serif; font-size: 1.7rem; }
+      .cert-card p { margin: 0; color: var(--muted); }
+
+      .about-cta {
+        background:
+          linear-gradient(rgba(26, 26, 26, 0.72), rgba(26, 26, 26, 0.72)),
+          url("assets/images/chantier-construction-rmc-batiment.jpg") center / cover no-repeat;
+        color: #fff;
+        text-align: center;
+      }
+      .about-cta h2 { margin: 0 0 0.65rem; font-family: "Bebas Neue", sans-serif; font-size: clamp(2rem, 4vw, 3.2rem); }
+      .about-cta p { margin: 0 0 1.2rem; color: #e2e2e2; font-family: "DM Sans", sans-serif; font-style: italic; }
+      .cta-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.7rem; }
+      .btn { border-radius: 50px; padding: 0.8rem 1.3rem; font-size: 0.86rem; letter-spacing: 0.05em; text-transform: uppercase; }
+      .btn-primary { background: #b43320; color: #fff; border: 1px solid #b43320; }
+      .btn-secondary { background: transparent; color: #fff; border: 1px solid #fff; }
+
+      .site-footer { border-top: 1px solid rgba(255, 255, 255, 0.1); background: #1a1a1a; color: #9a9a9a; padding: 1.2rem 0 1.2rem; }
+      .footer-grid { display: grid; grid-template-columns: 1fr; gap: 1.2rem; text-align: center; }
+      .footer-brand { color: #fff; font-size: 1.1rem; letter-spacing: 0.06em; margin: 0; }
+      .footer-note { margin: 0.25rem 0 0; }
+      .footer-links { display: grid; gap: 0.8rem; justify-content: center; }
+      .footer-links-row { display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; }
+      .footer-links a, .footer-meta { color: #9a9a9a; }
+      .footer-links a:hover { color: #fff; }
+      .footer-meta {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 1rem;
+        padding-top: 0.8rem;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+        font-size: 0.8rem;
+      }
+
+      .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+      .reveal.in { opacity: 1; transform: translateY(0); }
+
+      @media (min-width: 768px) {
+        .about-grid { flex-direction: row; align-items: flex-start; gap: 48px; }
+        .about-grid .about-text { flex: 1; }
+        .team-grid { grid-template-columns: 1fr 1fr; }
+        .cert-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 800px; margin-inline: auto; }
+        .footer-grid { grid-template-columns: 1.4fr 1fr; align-items: center; justify-content: space-between; }
+        .footer-meta { justify-content: center; }
+      }
+
+      @media (min-width: 1200px) {
+        .values-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      }
+
+      @media (max-width: 900px) {
+        .footer-meta { flex-direction: column; justify-content: center; align-items: center; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="index.html" class="logo-mark" aria-label="Accueil RMC Bâtiment">
+          <span class="brand">RMC BÂTIMENT</span>
+          <span class="tagline">MAÇONNERIE & RÉNOVATION</span>
+        </a>
+        <nav class="main-nav" aria-label="Navigation principale">
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="a-propos.html" class="active">À propos</a></li>
+            <li><a href="prestations.html">Prestations</a></li>
+            <li><a href="realisations.html">Réalisations</a></li>
+            <li><a href="contacts.html">Contacts</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section id="qui-sommes-nous">
+        <div class="container">
+          <p class="eyebrow reveal">À PROPOS</p>
+          <h1 class="title reveal">Qui sommes-nous ?</h1>
+          <div class="about-grid">
+            <div class="about-text reveal">
+              <p>
+                Avec 20 ans d'expérience, RMC Bâtiment est une entreprise artisanale spécialisée en maçonnerie générale, rénovation et construction. Basée en Normandie, elle intervient auprès des particuliers et des professionnels sur l'ensemble de la région.
+              </p>
+              <p>
+                Notre force ? Une écoute attentive, un travail soigné et une relation de confiance construite chantier après chantier. Chaque projet est traité comme unique, avec le même niveau d'exigence et de rigueur.
+              </p>
+              <ul class="strengths">
+                <li>Estimation gratuite et sans engagement</li>
+                <li>Respect des délais et du budget</li>
+                <li>Garantie décennale</li>
+              </ul>
+            </div>
+            <div class="logo-col reveal">
+              <img src="assets/images/logo-rmc-batiment.png" alt="Logo RMC Bâtiment" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="equipe">
+        <div class="container">
+          <div class="team-head reveal">
+            <p class="eyebrow">L'ÉQUIPE</p>
+            <h2 class="title">Des artisans passionnés</h2>
+            <p class="lead">Deux associés, 20 ans de métier, une même exigence du travail bien fait.</p>
+          </div>
+          <div class="team-grid">
+            <article class="team-card reveal" style="transition-delay:0s;">
+              <figure class="media-box" data-initial="H">
+                <img
+                  src="assets/images/portrait-fondateur-rmc-batiment.jpg?v=2"
+                  alt="Portrait Hervé Hérault"
+                  loading="lazy"
+                  onerror="this.parentElement.classList.add('is-missing')"
+                />
+                <span class="fallback">H</span>
+              </figure>
+              <h3>Hervé HÉRAULT</h3>
+              <a class="team-phone" href="tel:+33635316145"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-2.5 1.6a15 15 0 0 0 4.9 4.9L15 13l5 2v4a2 2 0 0 1-2.2 2A17 17 0 0 1 3 6.2 2 2 0 0 1 5 4Z" stroke="currentColor" stroke-width="1.8"/></svg>06 35 31 61 45</a>
+            </article>
+            <article class="team-card reveal" style="transition-delay:0.15s;">
+              <figure class="media-box" data-initial="S">
+                <img
+                  src="assets/images/portrait-fondateur-rmc-batiment2.jpg?v=2"
+                  alt="Portrait Sébastien Boisard"
+                  loading="lazy"
+                  onerror="this.parentElement.classList.add('is-missing')"
+                />
+                <span class="fallback">S</span>
+              </figure>
+              <h3>Sébastien BOISARD</h3>
+              <a class="team-phone" href="tel:+33647996339"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-2.5 1.6a15 15 0 0 0 4.9 4.9L15 13l5 2v4a2 2 0 0 1-2.2 2A17 17 0 0 1 3 6.2 2 2 0 0 1 5 4Z" stroke="currentColor" stroke-width="1.8"/></svg>06 47 99 63 39</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="valeurs">
+        <div class="container">
+          <p class="eyebrow reveal">NOS VALEURS</p>
+          <h2 class="title reveal">Ce qui nous guide chaque jour</h2>
+          <div class="values-grid">
+            <article class="value-card reveal" style="transition-delay:0s;">
+              <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="m12 3 2.7 5.5L21 9.4l-4.5 4.4 1.1 6.2L12 17.2 6.4 20l1.1-6.2L3 9.4l6.3-.9L12 3Z" stroke="#fff" stroke-width="1.8"/></svg>
+              <h3>Qualité</h3>
+              <p>Des matériaux sélectionnés, des finitions soignées. Chaque détail compte.</p>
+            </article>
+            <article class="value-card reveal" style="transition-delay:0.1s;">
+              <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M4 5h16v10H8l-4 4V5Z" stroke="#fff" stroke-width="1.8"/></svg>
+              <h3>Écoute</h3>
+              <p>Votre projet est unique. On prend le temps de comprendre vos besoins avant de commencer.</p>
+            </article>
+            <article class="value-card reveal" style="transition-delay:0.2s;">
+              <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M6 3h12v18H6zM9 8h6M9 12h6M9 16h4" stroke="#fff" stroke-width="1.8"/></svg>
+              <h3>Transparence</h3>
+              <p>Tarifs clairs, suivi régulier, aucune mauvaise surprise en fin de chantier.</p>
+            </article>
+            <article class="value-card reveal" style="transition-delay:0.3s;">
+              <svg class="icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="#fff" stroke-width="1.8"/><path d="M12 7v5l3 2" stroke="#fff" stroke-width="1.8"/></svg>
+              <h3>Respect des délais</h3>
+              <p>Un planning tenu, des engagements respectés. Votre temps est précieux.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="certifications">
+        <div class="container">
+          <div class="cert-head reveal">
+            <p class="eyebrow">CERTIFICATIONS</p>
+            <h2 class="title">Des garanties pour votre tranquillité</h2>
+            <p class="lead">RMC Bâtiment travaille dans le respect des normes en vigueur et vous garantit des travaux assurés et certifiés.</p>
+          </div>
+          <div class="cert-grid">
+            <article class="cert-card reveal" style="transition-delay:0s;">
+              <figure class="media-box" data-initial="A">
+                <img src="assets/images/badge-agrement-chape-liquide.png" alt="Agrément Chape Liquide" loading="lazy" onerror="this.parentElement.classList.add('is-missing')" />
+                <span class="fallback">A</span>
+              </figure>
+              <h3>Agrément Chape Liquide</h3>
+              <p>RMC Bâtiment est agréé pour la réalisation de chapes liquides et anhydrite pour plancher chauffant.</p>
+            </article>
+            <article class="cert-card reveal" style="transition-delay:0.15s;">
+              <figure class="media-box" data-initial="D">
+                <img src="assets/images/badge-assurance-decennale.png" alt="Assurance décennale" loading="lazy" onerror="this.parentElement.classList.add('is-missing')" />
+                <span class="fallback">D</span>
+              </figure>
+              <h3>Assurance Décennale</h3>
+              <p>Tous nos travaux sont couverts pendant 10 ans après réception du chantier.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-cta">
+        <div class="container reveal">
+          <h2>Un projet en tête ?</h2>
+          <p>Parlons-en, contactez-nous.</p>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="contacts.html">Nous contacter</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <p class="footer-brand">RMC BÂTIMENT</p>
+            <p class="footer-note">Maçonnerie générale et rénovation en Normandie</p>
+          </div>
+          <nav class="footer-links" aria-label="Liens footer">
+            <div class="footer-links-row">
+              <a href="a-propos.html">À propos</a>
+              <a href="prestations.html">Prestations</a>
+              <a href="realisations.html">Réalisations</a>
+              <a href="contacts.html">Contacts</a>
+            </div>
+            <div class="footer-links-row">
+              <a href="mentions-legales.html">Mentions légales</a>
+              <a href="politique-confidentialite.html">Politique de confidentialité</a>
+            </div>
+          </nav>
+        </div>
+        <div class="footer-meta">
+          <span>© RMC BÂTIMENT</span>
+          <span>100+ projets réalisés - 20 ans d'expérience</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var reveals = document.querySelectorAll(".reveal");
+        if ("IntersectionObserver" in window) {
+          var obs = new IntersectionObserver(function (entries, observer) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("in");
+                observer.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.16 });
+          reveals.forEach(function (el) { obs.observe(el); });
+        } else {
+          reveals.forEach(function (el) { el.classList.add("in"); });
+        }
+      });
+    </script>
+  </body>
+</html>

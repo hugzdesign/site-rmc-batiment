@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contacts — RMC Bâtiment | Maçonnerie & Rénovation Normandie</title>
+    <meta
+      name="description"
+      content="Contactez RMC Bâtiment pour vos travaux de maçonnerie, rénovation ou terrassement en Normandie. Réponse sous 48h."
+    />
+    <link rel="icon" href="assets/images/favicon-rmc-batiment.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital@1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f5f4f0;
+        --dark: #1a1a1a;
+        --muted: #6b6b6b;
+        --accent: #b43320;
+        --error: #e53e3e;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body { background: var(--bg); color: var(--dark); font-family: "DM Sans", sans-serif; }
+      a { color: inherit; text-decoration: none; }
+      .container { width: min(100% - 2rem, 1240px); margin-inline: auto; }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: #1a1a1a;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .header-inner { min-height: 86px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+      .logo-mark { display: inline-flex; flex-direction: column; line-height: 1; color: #fff; }
+      .brand { font-size: clamp(1.25rem, 2vw, 1.6rem); letter-spacing: 0.08em; font-weight: 500; }
+      .tagline { margin-top: 0.35rem; font-size: 0.58rem; letter-spacing: 0.42em; text-transform: uppercase; opacity: 0.86; }
+      .main-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.4rem; }
+      .main-nav a { color: #fff; font-size: 0.92rem; position: relative; }
+      .main-nav a::after {
+        content: ""; position: absolute; left: 0; right: 0; bottom: -0.35rem; height: 1px;
+        background: #fff; transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease;
+      }
+      .main-nav a:hover::after, .main-nav a.active::after { transform: scaleX(1); }
+      .main-nav a.active { color: var(--accent); }
+
+      .hero {
+        min-height: 350px;
+        background: #1a1a1a;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        color: #fff;
+      }
+      .eyebrow {
+        margin: 0 0 0.45rem;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-size: 0.74rem;
+        font-weight: 700;
+      }
+      .hero h1 {
+        margin: 0;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(2.4rem, 8vw, 4rem);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+      body.loaded .hero h1 { opacity: 1; transform: translateY(0); }
+      .hero p { margin: 0.6rem 0 0; color: #c9c9c9; }
+      .hero-line { width: 60px; height: 3px; background: var(--accent); margin: 1rem auto 0; }
+
+      .section { padding: 4.2rem 0; }
+      .contact-top { background: #fff; }
+      .contact-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+      .title { margin: 0.2rem 0 0.6rem; font-family: "Bebas Neue", sans-serif; font-size: clamp(2rem, 4vw, 3.1rem); }
+      .lead { color: var(--muted); margin: 0 0 1rem; }
+
+      .coord-list { display: grid; gap: 0.85rem; }
+      .coord-card {
+        display: grid;
+        grid-template-columns: 42px 1fr;
+        gap: 0.8rem;
+        align-items: start;
+        background: #f5f4f0;
+        border-radius: 12px;
+        padding: 14px;
+        opacity: 0;
+        transform: translateX(-28px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
+      }
+      .coord-card.in { opacity: 1; transform: translateX(0); }
+      .coord-icon {
+        width: 42px; height: 42px; border-radius: 50%;
+        display: grid; place-items: center; background: #fff; color: var(--accent);
+      }
+      .coord-icon svg { width: 22px; height: 22px; }
+      .coord-title { margin: 0; color: #1a1a1a; font-weight: 700; }
+      .coord-text { margin: 0.15rem 0 0; color: var(--muted); font-size: 0.94rem; }
+
+      .socials { margin-top: 1rem; display: flex; gap: 0.55rem; flex-wrap: wrap; }
+      .socials a {
+        width: 36px; height: 36px; border-radius: 50%;
+        display: inline-flex; align-items: center; justify-content: center;
+        background: #1a1a1a; color: #fff; transition: background 0.2s ease;
+      }
+      .socials a:hover { background: #b43320; }
+
+      .quick-form-wrap {
+        background: #f5f4f0;
+        border-radius: 16px;
+        padding: 40px;
+      }
+      .quick-form-wrap .title { font-size: clamp(1.8rem, 3vw, 2.6rem); margin-bottom: 0.9rem; }
+
+      .quote-section { background: #f5f4f0; }
+      .quote-head { text-align: center; margin-bottom: 1.5rem; }
+      .quote-head p { margin: 0; color: var(--muted); }
+      .quote-form {
+        max-width: 800px;
+        margin-inline: auto;
+        background: #fff;
+        border-radius: 16px;
+        padding: 48px;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+      }
+      .form-step {
+        margin: 0 0 1.5rem;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.86rem;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 0.7rem;
+      }
+      .grid-two { display: grid; grid-template-columns: 1fr; gap: 0.9rem; }
+      .field { margin-bottom: 0.9rem; }
+      .field label {
+        display: block;
+        margin-bottom: 6px;
+        color: #6b6b6b;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 0.85rem;
+      }
+      input, select, textarea {
+        width: 100%;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 14px 16px;
+        background: #fff;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.95rem;
+        color: #1a1a1a;
+        transition: border-color 0.2s ease, border-width 0.2s ease;
+      }
+      textarea { resize: vertical; min-height: 120px; }
+      input:focus, select:focus, textarea:focus {
+        outline: none;
+        border: 2px solid var(--accent);
+      }
+      .quick-form-wrap input,
+      .quick-form-wrap select,
+      .quick-form-wrap textarea {
+        background: #f5f4f0;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.9rem;
+      }
+      .checkbox {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.6rem;
+        align-items: start;
+        margin: 0.8rem 0 1rem;
+      }
+      .checkbox input { width: auto; margin-top: 0.2rem; }
+      .checkbox label {
+        margin: 0;
+        text-transform: none;
+        letter-spacing: 0;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+      .error {
+        margin-top: 4px;
+        color: var(--error);
+        font-size: 0.82rem;
+        display: none;
+      }
+      .field.invalid .error { display: block; }
+      .field.invalid input,
+      .field.invalid select,
+      .field.invalid textarea {
+        border: 2px solid var(--error);
+      }
+
+      .btn-submit {
+        width: 100%;
+        border: 0;
+        border-radius: 50px;
+        padding: 16px;
+        color: #fff;
+        background: #1a1a1a;
+        font-size: 0.95rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+      .btn-submit:hover { background: #b43320; }
+      .btn-submit.accent { background: #b43320; padding: 18px; font-size: 1rem; }
+      .btn-submit.accent:hover { background: #b43320; }
+
+      .success-msg {
+        display: none;
+        margin-top: 1rem;
+        border: 1px solid #38a169;
+        background: #f0fff4;
+        color: #276749;
+        border-radius: 10px;
+        padding: 0.9rem 1rem;
+      }
+      .success-msg.show { display: block; }
+
+      .maps { background: #fff; text-align: center; }
+      .map-title { margin: 0; font-family: "Bebas Neue", sans-serif; font-size: clamp(2rem, 4vw, 3rem); }
+      .map-sub { margin: 0.45rem 0 1rem; color: var(--muted); }
+      .map-placeholder {
+        width: 100%;
+        height: 450px;
+        border-radius: 12px;
+        background: #2c2c2c;
+        color: #fff;
+        display: grid;
+        place-items: center;
+        padding: 1rem;
+      }
+
+      .urgence {
+        background: #1a1a1a;
+        color: #fff;
+        text-align: center;
+        padding: 3.8rem 0;
+      }
+      .urgence-icon {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 0.8rem;
+        display: grid;
+        place-items: center;
+        color: #b43320;
+        animation: pulse 2s infinite;
+      }
+      .urgence-icon svg { width: 40px; height: 40px; }
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+      }
+      .urgence h2 {
+        margin: 0 0 0.45rem;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(2rem, 4.5vw, 3rem);
+      }
+      .urgence p { margin: 0 0 1rem; color: #d0d0d0; }
+      .urgence-btn {
+        display: inline-flex;
+        border-radius: 50px;
+        padding: 16px 40px;
+        font-size: 1.1rem;
+        background: #b43320;
+        color: #fff;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.65s ease, transform 0.65s ease;
+      }
+      .reveal.in { opacity: 1; transform: translateY(0); }
+
+      .site-footer {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        background: #1a1a1a;
+        color: #9a9a9a;
+        padding: 1.2rem 0 1.2rem;
+      }
+      .footer-grid { display: grid; grid-template-columns: 1fr; gap: 1.2rem; text-align: center; }
+      .footer-brand { color: #fff; font-size: 1.1rem; letter-spacing: 0.06em; margin: 0; }
+      .footer-note { margin: 0.25rem 0 0; }
+      .footer-links { display: grid; gap: 0.8rem; justify-content: center; }
+      .footer-links-row { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; }
+      .footer-links a, .footer-meta { color: #9a9a9a; }
+      .footer-links a:hover { color: #fff; }
+      .footer-meta {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 1rem;
+        padding-top: 0.8rem;
+        font-size: 0.8rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 0.7rem;
+      }
+
+      @media (min-width: 768px) {
+        .contact-grid { grid-template-columns: 1fr 1fr; gap: 1.8rem; }
+        .form-row, .grid-two { grid-template-columns: 1fr 1fr; }
+        .footer-grid { grid-template-columns: 1.4fr 1fr; align-items: center; justify-content: space-between; }
+        .footer-meta { justify-content: center; }
+      }
+
+      @media (min-width: 1200px) {
+        .hero h1 { font-size: 4rem; }
+      }
+
+      @media (max-width: 900px) {
+        .footer-meta { flex-direction: column; justify-content: center; align-items: center; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="index.html" class="logo-mark" aria-label="Accueil RMC Bâtiment">
+          <span class="brand">RMC BÂTIMENT</span>
+          <span class="tagline">MAÇONNERIE & RÉNOVATION</span>
+        </a>
+        <nav class="main-nav" aria-label="Navigation principale">
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="prestations.html">Prestations</a></li>
+            <li><a href="realisations.html">Réalisations</a></li>
+            <li><a href="contacts.html" class="active">Contacts</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <p class="eyebrow">CONTACT</p>
+          <h1>Parlons de votre projet</h1>
+          <p>Réponse sous 48h · Sans engagement</p>
+          <div class="hero-line"></div>
+        </div>
+      </section>
+
+      <section class="section contact-top" id="contact">
+        <div class="container contact-grid">
+          <article class="reveal">
+            <p class="eyebrow">NOUS CONTACTER</p>
+            <h2 class="title">On est à votre écoute</h2>
+            <p class="lead">Vous avez une question, un projet ou simplement envie d'échanger ? Contactez-nous directement ou remplissez le formulaire.</p>
+
+            <div class="coord-list">
+              <article class="coord-card" data-delay="100">
+                <div class="coord-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-2.5 1.6a15 15 0 0 0 4.9 4.9L15 13l5 2v4a2 2 0 0 1-2.2 2A17 17 0 0 1 3 6.2 2 2 0 0 1 5 4Z" stroke="currentColor" stroke-width="1.8"/></svg></div>
+                <div><p class="coord-title">Appelez-nous</p><p class="coord-text"><a href="tel:+33635316145">Hervé : 06 35 31 61 45</a></p><p class="coord-text"><a href="tel:+33647996339">Sébastien : 06 47 99 63 39</a></p></div>
+              </article>
+              <article class="coord-card" data-delay="200">
+                <div class="coord-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.8"/></svg></div>
+                <div><p class="coord-title">Écrivez-nous</p><p class="coord-text"><a href="mailto:contact@rmc-batiment.fr">contact@rmc-batiment.fr</a></p></div>
+              </article>
+            </div>
+
+            <div class="socials">
+              <a href="#" aria-label="Facebook">f</a>
+              <a href="#" aria-label="Instagram">i</a>
+              <a href="#" aria-label="LinkedIn">in</a>
+              <a href="#" aria-label="Pinterest">p</a>
+            </div>
+          </article>
+
+          <article class="quick-form-wrap reveal">
+            <p class="eyebrow">MESSAGE RAPIDE</p>
+            <h2 class="title">Une question ?</h2>
+            <form id="quickForm" action="https://formspree.io/f/TONID" method="POST" novalidate>
+              <div class="form-row">
+                <div class="field"><label for="q-firstname">Prénom</label><input id="q-firstname" name="prenom" required /><p class="error">Ce champ est obligatoire</p></div>
+                <div class="field"><label for="q-lastname">Nom</label><input id="q-lastname" name="nom" required /><p class="error">Ce champ est obligatoire</p></div>
+              </div>
+              <div class="field"><label for="q-email">Email</label><input id="q-email" name="email" required /><p class="error">Ce champ est obligatoire</p></div>
+              <div class="field"><label for="q-phone">Téléphone</label><input id="q-phone" name="telephone" required /><p class="error">Ce champ est obligatoire</p></div>
+              <div class="field"><label for="q-message">Message</label><textarea id="q-message" name="message" rows="5" required></textarea><p class="error">Ce champ est obligatoire</p></div>
+              <div class="checkbox field"><input type="checkbox" id="q-rgpd" required /><label for="q-rgpd">J'accepte que mes données soient utilisées pour répondre à ma demande. (<a href="politique-confidentialite.html">Politique de confidentialité</a>)</label><p class="error">Ce champ est obligatoire</p></div>
+              <button class="btn-submit" type="submit">Envoyer mon message →</button>
+            </form>
+          </article>
+        </div>
+      </section>
+
+
+      <section class="urgence">
+        <div class="container reveal">
+          <div class="urgence-icon">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-2.5 1.6a15 15 0 0 0 4.9 4.9L15 13l5 2v4a2 2 0 0 1-2.2 2A17 17 0 0 1 3 6.2 2 2 0 0 1 5 4Z" stroke="currentColor" stroke-width="1.8"/></svg>
+          </div>
+          <h2>Besoin d'une intervention rapide ?</h2>
+          <p>Appelez-nous directement, nous étudions votre situation.</p>
+          <a class="urgence-btn" href="tel:+33635316145">Hervé : 06 35 31 61 45</a>
+          <a class="urgence-btn" href="tel:+33647996339" style="margin-top:12px;">Sébastien : 06 47 99 63 39</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <p class="footer-brand">RMC BÂTIMENT</p>
+            <p class="footer-note">Maçonnerie générale et rénovation en Normandie</p>
+          </div>
+          <nav class="footer-links" aria-label="Liens footer">
+            <div class="footer-links-row">
+              <a href="a-propos.html">À propos</a>
+              <a href="prestations.html">Prestations</a>
+              <a href="realisations.html">Réalisations</a>
+              <a href="contacts.html">Contacts</a>
+            </div>
+            <div class="footer-links-row">
+              <a href="mentions-legales.html">Mentions légales</a>
+              <a href="politique-confidentialite.html">Politique de confidentialité</a>
+            </div>
+          </nav>
+        </div>
+        <div class="footer-meta">
+          <span>© RMC BÂTIMENT</span>
+          <span>100+ projets réalisés - 20 ans d'expérience</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.body.classList.add("loaded");
+
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var phoneRegex = /^\D*(\d\D*){10}$/;
+
+        function markInvalid(field, isInvalid, customMessage) {
+          if (!field) return;
+          field.classList.toggle("invalid", isInvalid);
+          var error = field.querySelector(".error");
+          if (error && customMessage) error.textContent = customMessage;
+        }
+
+        function validateForm(form) {
+          var valid = true;
+          var fields = form.querySelectorAll(".field");
+          fields.forEach(function (field) {
+            var input = field.querySelector("input, select, textarea");
+            if (!input) return;
+            var value = input.type === "checkbox" ? input.checked : input.value.trim();
+            var isInvalid = false;
+            var msg = "Ce champ est obligatoire";
+
+            if (input.hasAttribute("required")) {
+              if (input.type === "checkbox" && !value) isInvalid = true;
+              if (input.type !== "checkbox" && !value) isInvalid = true;
+            }
+            if (!isInvalid && input.name === "email" && !emailRegex.test(input.value.trim())) {
+              isInvalid = true;
+              msg = "Format email invalide";
+            }
+            if (!isInvalid && input.name === "telephone" && !phoneRegex.test(input.value.trim())) {
+              isInvalid = true;
+              msg = "Format téléphone invalide (10 chiffres)";
+            }
+            markInvalid(field, isInvalid, msg);
+            if (isInvalid) valid = false;
+          });
+          return valid;
+        }
+
+        function bindForm(form, successBox) {
+          if (!form) return;
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            if (!validateForm(form)) return;
+
+            fetch(form.action, {
+              method: "POST",
+              body: new FormData(form),
+              headers: { Accept: "application/json" }
+            }).then(function () {
+              if (successBox) successBox.classList.add("show");
+              form.reset();
+              form.querySelectorAll(".field").forEach(function (f) { f.classList.remove("invalid"); });
+            }).catch(function () {
+              if (successBox) {
+                successBox.classList.add("show");
+                successBox.style.borderColor = "#E53E3E";
+                successBox.style.background = "#fff5f5";
+                successBox.style.color = "#9b2c2c";
+                successBox.textContent = "Une erreur est survenue. Merci de réessayer.";
+              }
+            });
+          });
+        }
+
+        bindForm(document.getElementById("quickForm"));
+        bindForm(document.getElementById("quoteForm"), document.getElementById("quoteSuccess"));
+
+        var reveals = document.querySelectorAll(".reveal");
+        var coordCards = document.querySelectorAll(".coord-card");
+        if ("IntersectionObserver" in window) {
+          var obs = new IntersectionObserver(function (entries, observer) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("in");
+                observer.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.2 });
+          reveals.forEach(function (el) { obs.observe(el); });
+
+          var coordObs = new IntersectionObserver(function (entries, observer) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                var delay = parseInt(entry.target.getAttribute("data-delay"), 10) || 0;
+                entry.target.style.transitionDelay = delay + "ms";
+                entry.target.classList.add("in");
+                observer.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.2 });
+          coordCards.forEach(function (card) { coordObs.observe(card); });
+        } else {
+          reveals.forEach(function (el) { el.classList.add("in"); });
+          coordCards.forEach(function (card) { card.classList.add("in"); });
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1037 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Réalisations — RMC Bâtiment | Chantiers Maçonnerie & Rénovation Normandie</title>
+    <meta
+      name="description"
+      content="Découvrez les réalisations de RMC Bâtiment : rénovation de façade, maçonnerie, terrassement, extension de maison en Normandie. Photos et descriptions de chantiers."
+    />
+    <link rel="icon" href="assets/images/favicon-rmc-batiment.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital@1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --dark: #1a1a1a;
+        --bg: #f5f4f0;
+        --accent: #b43320;
+        --muted: #9a9a9a;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body { font-family: "DM Sans", sans-serif; background: var(--bg); color: var(--dark); }
+      a { color: inherit; text-decoration: none; }
+      img { max-width: 100%; display: block; }
+      .container { width: min(100% - 2rem, 1240px); margin-inline: auto; }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: #1a1a1a;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .header-inner { min-height: 86px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+      .logo-mark { display: inline-flex; flex-direction: column; line-height: 1; color: #fff; }
+      .brand { font-size: clamp(1.25rem, 2vw, 1.6rem); letter-spacing: 0.08em; font-weight: 500; }
+      .tagline { margin-top: 0.35rem; font-size: 0.58rem; letter-spacing: 0.42em; text-transform: uppercase; opacity: 0.86; }
+      .main-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.4rem; }
+      .main-nav a { color: #fff; font-size: 0.92rem; position: relative; }
+      .main-nav a::after {
+        content: ""; position: absolute; left: 0; right: 0; bottom: -0.35rem; height: 1px;
+        background: #fff; transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease;
+      }
+      .main-nav a:hover::after, .main-nav a.active::after { transform: scaleX(1); }
+      .main-nav a.active { color: var(--accent); }
+
+      .hero {
+        background: #1a1a1a;
+        min-height: 320px;
+        display: grid;
+        align-items: center;
+        text-align: center;
+        color: #fff;
+      }
+      .eyebrow {
+        margin: 0 0 0.5rem;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-size: 0.74rem;
+        font-weight: 700;
+      }
+      .hero h1 {
+        margin: 0 0 0.65rem;
+        font-family: "Bebas Neue", sans-serif;
+        letter-spacing: 0.03em;
+        font-size: clamp(2.2rem, 5vw, 4rem);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      body.loaded .hero h1 { opacity: 1; transform: translateY(0); }
+      .hero p {
+        margin: 0 auto;
+        color: #c9c9c9;
+        max-width: 68ch;
+      }
+
+      .filters-section { background: #f5f4f0; padding: 2rem 0 1.1rem; }
+      .filters {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+      }
+      .filter-btn {
+        border: 1px solid #d0ccc6;
+        border-radius: 50px;
+        background: #fff;
+        color: #1a1a1a;
+        padding: 8px 20px;
+        font-size: 0.85rem;
+        font-family: "DM Sans", sans-serif;
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+      .filter-btn:hover { background: #f0ede8; }
+      .filter-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+
+      .gallery-section { background: #f5f4f0; padding: 1.2rem 0 4rem; }
+      .gallery {
+        column-count: 1;
+        column-gap: 16px;
+      }
+      .real-card {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 16px;
+        break-inside: avoid;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        transform: translateY(30px);
+        opacity: 0;
+        transition: opacity 0.35s ease, transform 0.35s ease;
+      }
+      .real-card.in { transform: translateY(0); opacity: 1; }
+      .real-card.filtered-out {
+        opacity: 0;
+        transform: scale(0.95);
+        pointer-events: none;
+      }
+      .real-image-wrap {
+        position: relative;
+        width: 100%;
+        min-height: 220px;
+        background: #2c2c2c;
+      }
+      .real-image-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .real-placeholder {
+        position: absolute;
+        inset: 0;
+        display: none;
+        place-items: center;
+        color: #c3c3c3;
+        font-size: 0.9rem;
+      }
+      .real-image-wrap.is-placeholder .real-placeholder { display: grid; }
+      .real-image-wrap.is-placeholder::before {
+        content: attr(data-initial);
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        color: var(--accent);
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 3.2rem;
+        letter-spacing: 0.08em;
+      }
+      .real-image-wrap.is-missing img { display: none; }
+      .real-image-wrap.is-missing .real-placeholder { display: grid; }
+      .real-card[data-gallery] .real-image-wrap { aspect-ratio: 4 / 5; min-height: auto; }
+      .real-card[data-gallery] .real-image-wrap img { height: 100%; }
+
+      #photoGrid {
+        display: none;
+        column-count: 3;
+        column-gap: 16px;
+      }
+      #photoGrid.active { display: block; }
+      .pg-item {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 16px;
+        break-inside: avoid;
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        position: relative;
+      }
+      .pg-item.in { opacity: 1; }
+      .pg-item img {
+        width: 100%;
+        display: block;
+        object-fit: cover;
+      }
+      .pg-item:hover { transform: scale(1.02); transition: transform 0.3s ease, opacity 0.3s ease; }
+      .no-photos {
+        text-align: center;
+        padding: 4rem 0;
+        color: #6B6B6B;
+        font-family: "DM Sans", sans-serif;
+        font-size: 1rem;
+      }
+
+      .real-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        opacity: 0;
+        transition: opacity 0.35s ease;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        padding: 1.1rem;
+      }
+      .real-card:hover .real-overlay { opacity: 1; }
+      .real-cat {
+        margin: 0;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.72rem;
+      }
+      .real-title {
+        margin: 0.25rem 0;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.6rem;
+        color: #fff;
+        letter-spacing: 0.03em;
+      }
+      .real-desc {
+        margin: 0;
+        color: #d1d1d1;
+        font-size: 0.85rem;
+      }
+      .real-year {
+        margin: 0.5rem 0 0.8rem;
+        color: #bcbcbc;
+        font-size: 0.76rem;
+      }
+      .real-btn {
+        border: 0;
+        border-radius: 50px;
+        padding: 8px 20px;
+        background: #fff;
+        color: #111;
+        font-size: 0.8rem;
+        display: inline-block;
+      }
+
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.92);
+        display: none;
+        place-items: center;
+        z-index: 100;
+        padding: 1rem;
+      }
+      .lightbox.open { display: grid; }
+      .lightbox-box {
+        width: min(900px, 100%);
+        color: #fff;
+        text-align: center;
+        transform: scale(0.9);
+        opacity: 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+      }
+      .lightbox.open .lightbox-box { transform: scale(1); opacity: 1; }
+      .lightbox-close {
+        position: absolute;
+        top: 20px;
+        right: 22px;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        color: #fff;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+      }
+      .lightbox-img {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .lightbox-img img { width: 100%; display: block; }
+      .lightbox-cat { color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 1rem; }
+      .lightbox-title { margin: 0.25rem 0; font-family: "Bebas Neue", sans-serif; font-size: 2rem; }
+      .lightbox-desc { margin: 0; color: #d1d1d1; }
+      .lightbox-year { margin-top: 0.5rem; color: #bdbdbd; font-size: 0.85rem; }
+
+      .portfolio-preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9998;
+        background: rgba(0, 0, 0, 0.95);
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+      .portfolio-preloader.show { display: flex; }
+      .portfolio-spinner {
+        width: 44px;
+        height: 44px;
+        border: 3px solid rgba(180, 51, 32, 0.25);
+        border-top-color: #b43320;
+        border-radius: 50%;
+        animation: portfolioSpin 0.8s linear infinite;
+      }
+      @keyframes portfolioSpin {
+        to { transform: rotate(360deg); }
+      }
+
+      .portfolio-carousel {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0.95);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 1.2rem;
+      }
+      .portfolio-carousel.open { display: flex; }
+      .portfolio-box {
+        width: min(1100px, 100%);
+        text-align: center;
+        color: #fff;
+        position: relative;
+        position: relative;
+      }
+      .portfolio-close {
+        position: fixed;
+        top: 20px;
+        right: 24px;
+        z-index: 10000;
+        border: 0;
+        background: transparent;
+        color: #fff;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: color 0.2s ease;
+      }
+      .portfolio-close:hover { color: #b43320; }
+      .portfolio-title {
+        margin: 0.35rem 0 0.4rem;
+        font-family: "Bebas Neue", sans-serif;
+        letter-spacing: 0.04em;
+        font-size: 2rem;
+      }
+      .portfolio-counter {
+        margin: 0 0 0.7rem;
+        color: #b43320;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+      }
+      .portfolio-stage {
+        position: relative;
+        min-height: 52vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .portfolio-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 42px;
+        height: 42px;
+        border: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+      .portfolio-nav:hover { background: #b43320; }
+      .portfolio-nav.left { left: 0; }
+      .portfolio-nav.right { right: 0; }
+      .portfolio-nav svg { width: 18px; height: 18px; }
+      .portfolio-frame {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      .portfolio-image {
+        max-width: 90vw;
+        max-height: 65vh;
+        object-fit: contain;
+        border-radius: 8px;
+        display: block;
+        margin: 0 auto;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .portfolio-inline-loader {
+        position: absolute;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.15);
+      }
+      .portfolio-inline-loader.show { display: flex; }
+      .portfolio-placeholder {
+        position: absolute;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        color: #c3c3c3;
+        font-size: 0.92rem;
+      }
+      .portfolio-placeholder.show { display: flex; }
+      .portfolio-desc {
+        margin: 0.5rem auto 0;
+        max-width: 600px;
+        max-height: none;
+        overflow: visible;
+        color: #cccccc;
+        font-size: 0.9rem;
+        font-style: italic;
+        line-height: 1.6;
+      }
+      .portfolio-dots {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 16px;
+        margin-bottom: 12px;
+        z-index: 10;
+      }
+      .portfolio-dot {
+        width: 24px;
+        height: 2px;
+        border: 0;
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.25);
+        cursor: pointer;
+        transition: all 0.4s ease;
+      }
+      .portfolio-dot:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+      .portfolio-dot.active {
+        width: 36px;
+        background: #b43320;
+      }
+
+      .cta-final {
+        background: #1a1a1a;
+        color: #fff;
+        text-align: center;
+        padding: 4rem 0;
+      }
+      .cta-final h2 {
+        margin: 0 0 0.7rem;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(2rem, 4.2vw, 3.3rem);
+      }
+      .cta-final p { margin: 0 0 1.2rem; color: #d4d4d4; }
+      .cta-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.7rem; }
+      .btn-cta {
+        border-radius: 50px;
+        padding: 0.8rem 1.3rem;
+        font-size: 0.85rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .btn-cta.primary { background: #b43320; color: #fff; border: 1px solid #b43320; }
+      .btn-cta.secondary { background: transparent; color: #fff; border: 1px solid #fff; }
+
+      .site-footer {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        background: #1a1a1a;
+        color: #9a9a9a;
+        padding: 1.2rem 0 1.2rem;
+      }
+      .footer-grid { display: grid; grid-template-columns: 1fr; gap: 1.2rem; text-align: center; }
+      .footer-brand { color: #fff; font-size: 1.1rem; letter-spacing: 0.06em; margin: 0; }
+      .footer-note { margin: 0.25rem 0 0; }
+      .footer-links { display: grid; gap: 0.8rem; justify-content: center; }
+      .footer-links-row { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; }
+      .footer-links a, .footer-meta { color: #9a9a9a; }
+      .footer-links a:hover { color: #fff; }
+      .footer-meta {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 1rem;
+        padding-top: 0.8rem;
+        font-size: 0.8rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 0.7rem;
+      }
+
+      @media (min-width: 768px) {
+        .gallery { column-count: 2; }
+        #photoGrid { column-count: 2; }
+      }
+      @media (min-width: 1200px) {
+        .gallery { column-count: 3; }
+        #photoGrid { column-count: 3; }
+      }
+      @media (min-width: 768px) {
+        .footer-grid { grid-template-columns: 1.4fr 1fr; align-items: center; justify-content: space-between; }
+        .footer-meta { justify-content: center; }
+      }
+      @media (max-width: 900px) {
+        .footer-meta { flex-direction: column; justify-content: center; align-items: center; }
+      }
+      @media (max-width: 768px) {
+        .portfolio-nav { width: 48px; height: 48px; }
+        .portfolio-frame { }
+        .portfolio-image { max-width: 95vw; max-height: 55vh; }
+        .portfolio-desc { font-size: 0.8rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="index.html" class="logo-mark" aria-label="Accueil RMC Bâtiment">
+          <span class="brand">RMC BÂTIMENT</span>
+          <span class="tagline">MAÇONNERIE & RÉNOVATION</span>
+        </a>
+        <nav class="main-nav" aria-label="Navigation principale">
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="prestations.html">Prestations</a></li>
+            <li><a href="realisations.html" class="active">Réalisations</a></li>
+            <li><a href="contacts.html">Contacts</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <p class="eyebrow">NOS RÉALISATIONS</p>
+          <h1>Des chantiers livrés avec soin</h1>
+          <p>Découvrez quelques-uns de nos projets réalisés en Normandie pour des particuliers et des professionnels.</p>
+        </div>
+      </section>
+
+      <section class="filters-section">
+        <div class="container">
+          <div class="filters" role="toolbar" aria-label="Filtres réalisations">
+            <button class="filter-btn active" data-filter="all" type="button">Tous</button>
+            <button class="filter-btn" data-filter="maconnerie" type="button">Maçonnerie</button>
+            <button class="filter-btn" data-filter="renovation" type="button">Rénovation</button>
+            <button class="filter-btn" data-filter="terrasse" type="button">Terrasse</button>
+            <button class="filter-btn" data-filter="extension" type="button">Extension</button>
+            <button class="filter-btn" data-filter="batiment" type="button">Bâtiment</button>
+            <button class="filter-btn" data-filter="joints" type="button">Joints</button>
+            <button class="filter-btn" data-filter="exterieure" type="button">Extérieure</button>
+            <button class="filter-btn" data-filter="clotures" type="button">Portails & Clôtures</button>
+            <button class="filter-btn" data-filter="plancher" type="button">Chape liquide et dalle béton</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="gallery-section">
+        <div class="container">
+          <div class="gallery" id="gallery">
+            <article class="real-card" data-filter="renovation" data-gallery="renovation-carousel">
+              <div class="real-image-wrap">
+                <img src="assets/images/realisations/r%C3%A9novation/realisation-renovation-chantier1-1.jpg" alt="Rénovation" loading="lazy" onerror="this.parentElement.classList.add('is-missing')" />
+                <div class="real-placeholder">Photo à venir</div>
+              </div>
+              <div class="real-overlay"><div><p class="real-cat">Rénovation</p><h3 class="real-title">Rénovation</h3><p class="real-desc">Voir les 4 chantiers</p><p class="real-year">Catégorie</p><span class="real-btn">Voir la catégorie →</span></div></div>
+            </article>
+
+            <article class="real-card" data-filter="maconnerie" data-category="MAÇONNERIE" data-title="Construction de mur en parpaings" data-description="Élévation de mur porteur et finitions." data-year="2024" data-image="assets/images/realisation-chantier-maconnerie-1.jpg">
+              <div class="real-image-wrap">
+                <img src="assets/images/realisation-chantier-maconnerie-1.jpg" alt="Construction de mur en parpaings" loading="lazy" onerror="this.parentElement.classList.add('is-missing')" />
+                <div class="real-placeholder">Photo à venir</div>
+              </div>
+              <div class="real-overlay">
+                <div>
+                  <p class="real-cat">MAÇONNERIE</p>
+                  <h3 class="real-title">Construction de mur en parpaings</h3>
+                  <p class="real-desc">Élévation de mur porteur et finitions.</p>
+                  <p class="real-year">2024</p>
+                  <span class="real-btn">Voir le chantier →</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="real-card" data-filter="terrasse" data-gallery="terrasse-carousel">
+              <div class="real-image-wrap">
+                <img src="assets/images/realisations/terrasse/realisation-terrasse-chantier1-1.jpg?v=2" alt="Terrasse" loading="lazy" onerror="this.parentElement.classList.add('is-missing')" style="object-position: center; transform: scale(1.3);" />
+                <div class="real-placeholder">Photo à venir</div>
+              </div>
+              <div class="real-overlay"><div><p class="real-cat">Terrasse</p><h3 class="real-title">Terrasse</h3><p class="real-desc">Voir les 5 chantiers</p><p class="real-year">Catégorie</p><span class="real-btn">Voir la catégorie →</span></div></div>
+            </article>
+
+            <article class="real-card" data-filter="maconnerie" data-category="MAÇONNERIE" data-title="Maçonnerie extérieure" data-description="Photo du chantier à venir." data-year="2024" data-image="">
+              <div class="real-image-wrap is-placeholder" data-initial="M"><div class="real-placeholder">Photo à venir</div></div>
+              <div class="real-overlay"><div><p class="real-cat">MAÇONNERIE</p><h3 class="real-title">Maçonnerie extérieure</h3><p class="real-desc">Photo du chantier à venir.</p><p class="real-year">2024</p><span class="real-btn">Voir le chantier →</span></div></div>
+            </article>
+            <article class="real-card" data-filter="maconnerie" data-category="MAÇONNERIE" data-title="Structure de maison" data-description="Photo du chantier à venir." data-year="2024" data-image="">
+              <div class="real-image-wrap is-placeholder" data-initial="M"><div class="real-placeholder">Photo à venir</div></div>
+              <div class="real-overlay"><div><p class="real-cat">MAÇONNERIE</p><h3 class="real-title">Structure de maison</h3><p class="real-desc">Photo du chantier à venir.</p><p class="real-year">2024</p><span class="real-btn">Voir le chantier →</span></div></div>
+            </article>
+            <article class="real-card" data-filter="extension" data-gallery="extension-carousel">
+              <div class="real-image-wrap">
+                <img src="assets/images/realisations/extension/realisation-extension-chantier1-1.jpg" alt="Extension" loading="lazy" onerror="this.parentElement.classList.add('is-missing')" />
+                <div class="real-placeholder">Photo à venir</div>
+              </div>
+              <div class="real-overlay"><div><p class="real-cat">Extension</p><h3 class="real-title">Extension</h3><p class="real-desc">Voir les 2 chantiers</p><p class="real-year">Catégorie</p><span class="real-btn">Voir la catégorie →</span></div></div>
+            </article>
+            <article class="real-card" data-filter="batiment" data-gallery="batiment-carousel">
+              <div class="real-image-wrap">
+                <img src="assets/images/realisations/b%C3%A2timent/realisation-b%C3%A2timent-chantier1-1.jpg" alt="Bâtiment" loading="lazy" onerror="this.parentElement.classList.add('is-missing')" />
+                <div class="real-placeholder">Photo à venir</div>
+              </div>
+              <div class="real-overlay"><div><p class="real-cat">Bâtiment</p><h3 class="real-title">Bâtiment</h3><p class="real-desc">Voir le chantier</p><p class="real-year">Catégorie</p><span class="real-btn">Voir la catégorie →</span></div></div>
+            </article>
+            <article class="real-card" data-filter="joints" data-gallery="joints-carousel">
+              <div class="real-image-wrap">
+                <img src="assets/images/realisations/joints/realisation-joints-chantier1-1.jpg" alt="Joints" loading="lazy" onerror="this.parentElement.classList.add('is-missing')" />
+                <div class="real-placeholder">Photo à venir</div>
+              </div>
+              <div class="real-overlay"><div><p class="real-cat">Joints</p><h3 class="real-title">Joints</h3><p class="real-desc">Voir les 4 chantiers</p><p class="real-year">Catégorie</p><span class="real-btn">Voir la catégorie →</span></div></div>
+            </article>
+            <article class="real-card" data-filter="exterieure" data-gallery="exterieure-carousel">
+              <div class="real-image-wrap">
+                <img src="assets/images/realisations/ext%C3%A9rieure/realisation-exterieure-chantier1-1.jpg" alt="Extérieure" loading="lazy" onerror="this.parentElement.classList.add('is-missing')" />
+                <div class="real-placeholder">Photo à venir</div>
+              </div>
+              <div class="real-overlay"><div><p class="real-cat">Extérieure</p><h3 class="real-title">Extérieure</h3><p class="real-desc">Voir les 4 chantiers</p><p class="real-year">Catégorie</p><span class="real-btn">Voir la catégorie →</span></div></div>
+            </article>
+            <article class="real-card" data-filter="clotures" data-gallery="portails-carousel">
+              <div class="real-image-wrap">
+                <img src="assets/images/realisations/portails/realisation-portail-cloture-chantier1-1.jpg" alt="Portails et clôtures" loading="lazy" onerror="this.parentElement.classList.add('is-missing')" />
+                <div class="real-placeholder">Photo à venir</div>
+              </div>
+              <div class="real-overlay"><div><p class="real-cat">Portails & Clôtures</p><h3 class="real-title">Portails & Clôtures</h3><p class="real-desc">Voir les 6 chantiers</p><p class="real-year">Catégorie</p><span class="real-btn">Voir la catégorie →</span></div></div>
+            </article>
+            <article class="real-card" data-filter="plancher" data-category="PLANCHER CHAUFFANT" data-title="Chape anhydrite" data-description="Photo du chantier à venir." data-year="2024" data-image="">
+              <div class="real-image-wrap is-placeholder" data-initial="P"><div class="real-placeholder">Photo à venir</div></div>
+              <div class="real-overlay"><div><p class="real-cat">PLANCHER CHAUFFANT</p><h3 class="real-title">Chape anhydrite</h3><p class="real-desc">Photo du chantier à venir.</p><p class="real-year">2024</p><span class="real-btn">Voir le chantier →</span></div></div>
+            </article>
+            <article class="real-card" data-filter="plancher" data-category="PLANCHER CHAUFFANT" data-title="Pose plancher chauffant" data-description="Photo du chantier à venir." data-year="2024" data-image="">
+              <div class="real-image-wrap is-placeholder" data-initial="P"><div class="real-placeholder">Photo à venir</div></div>
+              <div class="real-overlay"><div><p class="real-cat">PLANCHER CHAUFFANT</p><h3 class="real-title">Pose plancher chauffant</h3><p class="real-desc">Photo du chantier à venir.</p><p class="real-year">2024</p><span class="real-btn">Voir le chantier →</span></div></div>
+            </article>
+          </div>
+          <div id="photoGrid"></div>
+        </div>
+      </section>
+
+      <section class="cta-final">
+        <div class="container">
+          <h2>Vous avez un projet similaire ?</h2>
+          <p>Contactez-nous pour en discuter.</p>
+          <div class="cta-actions">
+            <a class="btn-cta primary" href="contacts.html">Nous contacter</a>
+            <a class="btn-cta secondary" href="prestations.html">Voir nos prestations</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="Fermer">✕</button>
+      <div class="lightbox-box">
+        <div class="lightbox-img"><img id="lightboxImg" src="" alt="Photo du chantier" loading="lazy" /></div>
+        <p class="lightbox-cat" id="lightboxCat"></p>
+        <h2 class="lightbox-title" id="lightboxTitle"></h2>
+        <p class="lightbox-desc" id="lightboxDesc"></p>
+        <p class="lightbox-year" id="lightboxYear"></p>
+      </div>
+    </div>
+
+    <div class="portfolio-preloader" id="uniPreloader" aria-hidden="true">
+      <div class="portfolio-spinner" aria-label="Chargement"></div>
+    </div>
+
+    <div class="portfolio-carousel" id="uniCarousel" aria-hidden="true">
+      <button class="portfolio-close" id="uniClose" type="button" aria-label="Fermer">✕</button>
+      <div class="portfolio-box">
+        <h2 class="portfolio-title" id="uniTitle"></h2>
+        <p class="portfolio-counter" id="uniCounter"></p>
+        <div class="portfolio-stage">
+          <button class="portfolio-nav left" id="uniPrev" type="button" aria-label="Photo précédente">
+            <svg viewBox="0 0 24 24" fill="none"><path d="m15 5-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="portfolio-frame" id="uniFrame">
+            <img class="portfolio-image" id="uniImage" src="" alt="" loading="lazy" />
+            <div class="portfolio-inline-loader" id="uniLoader"><div class="portfolio-spinner"></div></div>
+            <div class="portfolio-placeholder" id="uniPlaceholder">Photo à venir</div>
+          </div>
+          <button class="portfolio-nav right" id="uniNext" type="button" aria-label="Photo suivante">
+            <svg viewBox="0 0 24 24" fill="none"><path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="portfolio-dots" id="uniDots"></div>
+        <p class="portfolio-desc" id="uniDesc"></p>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <p class="footer-brand">RMC BÂTIMENT</p>
+            <p class="footer-note">Maçonnerie générale et rénovation en Normandie</p>
+          </div>
+          <nav class="footer-links" aria-label="Liens footer">
+            <div class="footer-links-row">
+              <a href="a-propos.html">À propos</a>
+              <a href="prestations.html">Prestations</a>
+              <a href="realisations.html">Réalisations</a>
+              <a href="contacts.html">Contacts</a>
+            </div>
+            <div class="footer-links-row">
+              <a href="mentions-legales.html">Mentions légales</a>
+              <a href="politique-confidentialite.html">Politique de confidentialité</a>
+            </div>
+          </nav>
+        </div>
+        <div class="footer-meta">
+          <span>© RMC BÂTIMENT</span>
+          <span>100+ projets réalisés - 20 ans d'expérience</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.body.classList.add("loaded");
+
+        var categories = {
+          maconnerie: { label: "Maçonnerie", chantiers: [
+            { desc: "\u{1F4DD} Description à renseigner", photos: ["assets/images/realisation-chantier-maconnerie-1.jpg"] }
+          ]},
+          renovation: { label: "Rénovation", chantiers: [
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Rénovation complète d'un intérieur, lieu et année.", photos: ["assets/images/realisations/r%C3%A9novation/realisation-renovation-chantier1-1.jpg", "assets/images/realisations/r%C3%A9novation/realisation-renovation-chantier1-2.jpg", "assets/images/realisations/r%C3%A9novation/realisation-renovation-chantier1-3.jpg", "assets/images/realisations/r%C3%A9novation/realisation-renovation-chantier1-4.jpg"] },
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Travaux de rénovation avec finitions soignées.", photos: ["assets/images/realisations/r%C3%A9novation/realisation-renovation-chantier2-1.jpg", "assets/images/realisations/r%C3%A9novation/realisation-renovation-chantier2-2.jpg", "assets/images/realisations/r%C3%A9novation/realisation-renovation-chantier2-3.jpg"] },
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Rénovation de façade et remise en état.", photos: ["assets/images/realisations/r%C3%A9novation/realisation-renovation-chantier3-1.jpg", "assets/images/realisations/r%C3%A9novation/realisation-renovation-chantier3-2.jpg", "assets/images/realisations/r%C3%A9novation/realisation-renovation-chantier3-3.jpg"] },
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Rénovation et modernisation d'un espace.", photos: ["assets/images/realisations/r%C3%A9novation/realisation-renovation-chantier4-1.jpg", "assets/images/realisations/r%C3%A9novation/realisation-renovation-chantier4-2.jpg", "assets/images/realisations/r%C3%A9novation/realisation-renovation-chantier4-3.jpg", "assets/images/realisations/r%C3%A9novation/realisation-renovation-chantier4-4.jpg"] }
+          ]},
+          terrasse: { label: "Terrasse", chantiers: [
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Réalisation d'une terrasse.", photos: ["assets/images/realisations/terrasse/realisation-terrasse-chantier1-1.jpg?v=2"] },
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Création d'une terrasse extérieure.", photos: ["assets/images/realisations/terrasse/realisation-terrasse-chantier2-1.jpg"] },
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Aménagement d'une terrasse sur mesure.", photos: ["assets/images/realisations/terrasse/realisation-terrasse-chantier3-1.jpg"] },
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Construction d'une terrasse avec finitions.", photos: ["assets/images/realisations/terrasse/realisation-terrasse-chantier4-1.jpg"] },
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Réalisation complète d'une terrasse.", photos: ["assets/images/realisations/terrasse/realisation-terrasse-chantier5-1.jpg", "assets/images/realisations/terrasse/realisation-terrasse-chantier5-2.jpg", "assets/images/realisations/terrasse/realisation-terrasse-chantier5-3.jpg", "assets/images/realisations/terrasse/realisation-terrasse-chantier5-4.jpg?v=2"] }
+          ]},
+          extension: { label: "Extension", chantiers: [
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Extension de maison.", photos: ["assets/images/realisations/extension/realisation-extension-chantier1-1.jpg", "assets/images/realisations/extension/realisation-extension-chantier1-2.jpg", "assets/images/realisations/extension/realisation-extension-chantier1-3.jpg"] },
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Agrandissement de surface habitable.", photos: ["assets/images/realisations/extension/realisation-extension-chantier2-1.jpg", "assets/images/realisations/extension/realisation-extension-chantier2-2.jpg", "assets/images/realisations/extension/realisation-extension-chantier2-3.jpg", "assets/images/realisations/extension/realisation-extension-chantier2-4.jpg"] }
+          ]},
+          batiment: { label: "Bâtiment", chantiers: [
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Chantier de construction ou rénovation.", photos: ["assets/images/realisations/b%C3%A2timent/realisation-b%C3%A2timent-chantier1-1.jpg", "assets/images/realisations/b%C3%A2timent/realisation-b%C3%A2timent-chantier1-2.jpg", "assets/images/realisations/b%C3%A2timent/realisation-b%C3%A2timent-chantier1-3.jpg", "assets/images/realisations/b%C3%A2timent/realisation-b%C3%A2timent-chantier1-4.jpg", "assets/images/realisations/b%C3%A2timent/realisation-b%C3%A2timent-chantier1-5.jpg", "assets/images/realisations/b%C3%A2timent/realisation-b%C3%A2timent-chantier1-6.jpg", "assets/images/realisations/b%C3%A2timent/realisation-b%C3%A2timent-chantier1-7.jpg"] }
+          ]},
+          joints: { label: "Joints", chantiers: [
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Réalisation de joints de pierre.", photos: ["assets/images/realisations/joints/realisation-joints-chantier1-1.jpg", "assets/images/realisations/joints/realisation-joints-chantier1-2.jpg"] },
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Rejointoiement de façade en pierre.", photos: ["assets/images/realisations/joints/realisation-joints-chantier2-1.jpg", "assets/images/realisations/joints/realisation-joints-chantier2-2.jpg"] },
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Joints de maçonnerie traditionnelle.", photos: ["assets/images/realisations/joints/realisation-joints-chantier3-1.jpg"] },
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Travaux de joints et finitions.", photos: ["assets/images/realisations/joints/realisation-joints-chantier4-1.jpg", "assets/images/realisations/joints/realisation-joints-chantier4-2.jpg"] }
+          ]},
+          exterieure: { label: "Extérieure", chantiers: [
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Aménagement extérieur complet.", photos: ["assets/images/realisations/ext%C3%A9rieure/realisation-exterieure-chantier1-1.jpg", "assets/images/realisations/ext%C3%A9rieure/realisation-exterieure-chantier1-2.jpg", "assets/images/realisations/ext%C3%A9rieure/realisation-exterieure-chantier1-3.jpg", "assets/images/realisations/ext%C3%A9rieure/realisation-exterieure-chantier1-4.jpg"] },
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Travaux d'aménagement extérieur.", photos: ["assets/images/realisations/ext%C3%A9rieure/realisation-exterieure-chantier2-1.jpg", "assets/images/realisations/ext%C3%A9rieure/realisation-exterieure-chantier2-2.jpg"] },
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Réalisation d'un espace extérieur sur mesure.", photos: ["assets/images/realisations/ext%C3%A9rieure/realisation-exterieure-chantier3-1.jpg", "assets/images/realisations/ext%C3%A9rieure/realisation-exterieure-chantier3-2.jpg", "assets/images/realisations/ext%C3%A9rieure/realisation-exterieure-chantier3-3.jpg"] },
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Finitions et aménagement d'extérieur.", photos: ["assets/images/realisations/ext%C3%A9rieure/realisation-exterieure-chantier4-1.jpg", "assets/images/realisations/ext%C3%A9rieure/realisation-exterieure-chantier4-2.jpg", "assets/images/realisations/ext%C3%A9rieure/realisation-exterieure-chantier4-3.jpg"] }
+          ]},
+          clotures: { label: "Portails & Clôtures", chantiers: [
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Réalisation d'un portail deux battants avec piliers maçonnés.", photos: ["assets/images/realisations/portails/realisation-portail-cloture-chantier1-1.jpg"] },
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Construction d'un mur de clôture enduit avec portail coulissant.", photos: ["assets/images/realisations/portails/realisation-portail-cloture-chantier2-1.jpg", "assets/images/realisations/portails/realisation-portail-cloture-chantier2-2.jpg"] },
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Clôture sur mesure avec piliers maçonnés et portail battant.", photos: ["assets/images/realisations/portails/realisation-portail-cloture-chantier3-1.jpg", "assets/images/realisations/portails/realisation-portail-cloture-chantier3-2.jpg", "assets/images/realisations/portails/realisation-portail-cloture-chantier3-3.jpg"] },
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Accès sécurisé avec mur enduit et portail motorisé.", photos: ["assets/images/realisations/portails/realisation-portail-cloture-chantier4-1.jpg"] },
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Réfection complète d'une entrée de propriété.", photos: ["assets/images/realisations/portails/realisation-portail-cloture-chantier5-1.jpg", "assets/images/realisations/portails/realisation-portail-cloture-chantier5-2.jpg", "assets/images/realisations/portails/realisation-portail-cloture-chantier5-3.jpg", "assets/images/realisations/portails/realisation-portail-cloture-chantier5-4.jpg"] },
+            { desc: "\u{1F4DD} Description à renseigner — Ex : Mur de clôture avec piliers maçonnés et portail.", photos: ["assets/images/realisations/portails/realisation-portail-cloture-chantier6-1.jpg", "assets/images/realisations/portails/realisation-portail-cloture-chantier6-2.jpg"] }
+          ]}
+        };
+
+        function flattenCategory(key) {
+          var cat = categories[key];
+          if (!cat) return [];
+          var slides = [];
+          cat.chantiers.forEach(function (ch) {
+            ch.photos.forEach(function (src) {
+              slides.push({ src: src, desc: ch.desc });
+            });
+          });
+          return slides;
+        }
+
+        var gallery = document.getElementById("gallery");
+        var photoGrid = document.getElementById("photoGrid");
+        var filterButtons = Array.from(document.querySelectorAll(".filter-btn"));
+        var cards = Array.from(document.querySelectorAll(".real-card"));
+
+        var lightbox = document.getElementById("lightbox");
+        var lightboxImg = document.getElementById("lightboxImg");
+        var lightboxCat = document.getElementById("lightboxCat");
+        var lightboxTitle = document.getElementById("lightboxTitle");
+        var lightboxDesc = document.getElementById("lightboxDesc");
+        var lightboxYear = document.getElementById("lightboxYear");
+        var lbCloseBtn = document.querySelector(".lightbox-close");
+
+        var uniCarousel = document.getElementById("uniCarousel");
+        var uniPreloader = document.getElementById("uniPreloader");
+        var uniTitle = document.getElementById("uniTitle");
+        var uniCounter = document.getElementById("uniCounter");
+        var uniImage = document.getElementById("uniImage");
+        var uniLoader = document.getElementById("uniLoader");
+        var uniPlaceholder = document.getElementById("uniPlaceholder");
+        var uniDesc = document.getElementById("uniDesc");
+        var uniDots = document.getElementById("uniDots");
+
+        var uniSlides = [];
+        var uniPreloadState = [];
+        var uniCurrent = 0;
+        var uniOpen = false;
+        var categoryFilters = ["maconnerie","renovation","terrasse","extension","batiment","joints","exterieure","clotures"];
+
+        function uniPreloadSlide(i) {
+          if (!uniSlides[i]) return Promise.resolve(false);
+          var s = uniPreloadState[i];
+          if (s.promise) return s.promise;
+          s.status = "loading";
+          s.promise = new Promise(function (res) {
+            var img = new Image();
+            img.onload = function () { s.status = "loaded"; res(true); };
+            img.onerror = function () { s.status = "error"; res(false); };
+            img.src = uniSlides[i].src;
+          });
+          return s.promise;
+        }
+
+        function uniBuildDots() {
+          uniDots.innerHTML = "";
+          uniSlides.forEach(function (_, i) {
+            var d = document.createElement("button");
+            d.type = "button";
+            d.className = "portfolio-dot";
+            d.addEventListener("click", function () { uniRender(i); });
+            uniDots.appendChild(d);
+          });
+        }
+
+        function uniUpdateDots() {
+          Array.from(uniDots.querySelectorAll(".portfolio-dot")).forEach(function (d, i) {
+            d.classList.toggle("active", i === uniCurrent);
+          });
+        }
+
+        function uniRender(index) {
+          if (!uniSlides.length) return;
+          uniCurrent = (index + uniSlides.length) % uniSlides.length;
+          var slide = uniSlides[uniCurrent];
+          var req = uniCurrent;
+          uniCounter.textContent = "Photo " + (uniCurrent + 1) + " / " + uniSlides.length;
+          uniDesc.textContent = slide.desc;
+          uniUpdateDots();
+          uniPlaceholder.classList.remove("show");
+          uniLoader.classList.add("show");
+          uniImage.style.opacity = "0";
+          uniImage.style.display = "block";
+          if (uniPreloadState[uniCurrent].status === "error") {
+            uniLoader.classList.remove("show");
+            uniPlaceholder.classList.add("show");
+            uniImage.style.display = "none";
+            return;
+          }
+          uniImage.onload = function () {
+            if (req !== uniCurrent) return;
+            uniLoader.classList.remove("show");
+            uniImage.style.opacity = "1";
+          };
+          uniImage.onerror = function () {
+            if (req !== uniCurrent) return;
+            uniPreloadState[uniCurrent].status = "error";
+            uniLoader.classList.remove("show");
+            uniPlaceholder.classList.add("show");
+            uniImage.style.display = "none";
+          };
+          uniImage.src = slide.src;
+        }
+
+        function openUniCarousel(catKey, startIndex) {
+          var cat = categories[catKey];
+          if (!cat) return;
+          uniSlides = flattenCategory(catKey);
+          if (!uniSlides.length) return;
+          uniPreloadState = uniSlides.map(function () { return { status: "idle", promise: null }; });
+          uniTitle.textContent = cat.label;
+          uniImage.alt = "Photo " + cat.label;
+          uniBuildDots();
+          uniSlides.forEach(function (_, i) { uniPreloadSlide(i); });
+          uniPreloader.classList.add("show");
+          uniPreloadSlide(startIndex || 0).then(function () {
+            uniPreloader.classList.remove("show");
+            uniCarousel.classList.add("open");
+            uniCarousel.setAttribute("aria-hidden", "false");
+            document.body.style.overflow = "hidden";
+            uniOpen = true;
+            uniRender(startIndex || 0);
+          });
+        }
+
+        function closeUniCarousel() {
+          uniCarousel.classList.remove("open");
+          uniCarousel.setAttribute("aria-hidden", "true");
+          uniPreloader.classList.remove("show");
+          document.body.style.overflow = "";
+          uniOpen = false;
+        }
+
+        document.getElementById("uniClose").addEventListener("click", closeUniCarousel);
+        document.getElementById("uniPrev").addEventListener("click", function () { uniRender(uniCurrent - 1); });
+        document.getElementById("uniNext").addEventListener("click", function () { uniRender(uniCurrent + 1); });
+        uniCarousel.addEventListener("click", function (e) { if (e.target === uniCarousel) closeUniCarousel(); });
+
+        function showDefaultGallery() {
+          gallery.style.display = "";
+          photoGrid.classList.remove("active");
+          photoGrid.innerHTML = "";
+        }
+
+        function showPhotoGrid(catKey) {
+          gallery.style.display = "none";
+          photoGrid.innerHTML = "";
+          var slides = flattenCategory(catKey);
+          if (!slides.length) {
+            photoGrid.innerHTML = '<p class="no-photos">Photos à venir pour cette catégorie</p>';
+            photoGrid.classList.add("active");
+            return;
+          }
+          slides.forEach(function (slide, i) {
+            var div = document.createElement("div");
+            div.className = "pg-item";
+            var img = document.createElement("img");
+            img.src = slide.src;
+            img.alt = categories[catKey].label;
+            img.loading = "lazy";
+            div.appendChild(img);
+            div.addEventListener("click", function () { openUniCarousel(catKey, i); });
+            photoGrid.appendChild(div);
+            setTimeout(function () { div.classList.add("in"); }, 30 + i * 50);
+          });
+          photoGrid.classList.add("active");
+          document.querySelector(".gallery-section").scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+        filterButtons.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var filter = btn.getAttribute("data-filter");
+            filterButtons.forEach(function (b) { b.classList.remove("active"); });
+            btn.classList.add("active");
+
+            if (categoryFilters.indexOf(filter) !== -1) {
+              showPhotoGrid(filter);
+            } else {
+              showDefaultGallery();
+              cards.forEach(function (card) {
+                var match = filter === "all" || card.getAttribute("data-filter") === filter;
+                card.classList.toggle("filtered-out", !match);
+              });
+            }
+          });
+        });
+
+        function openLightbox(card) {
+          var image = card.getAttribute("data-image");
+          lightboxCat.textContent = card.getAttribute("data-category") || "";
+          lightboxTitle.textContent = card.getAttribute("data-title") || "";
+          lightboxDesc.textContent = card.getAttribute("data-description") || "";
+          lightboxYear.textContent = card.getAttribute("data-year") || "";
+          if (image) { lightboxImg.style.display = "block"; lightboxImg.src = image; }
+          else { lightboxImg.style.display = "none"; }
+          lightbox.classList.add("open");
+          lightbox.setAttribute("aria-hidden", "false");
+        }
+
+        function closeLightbox() {
+          lightbox.classList.remove("open");
+          lightbox.setAttribute("aria-hidden", "true");
+        }
+
+        cards.forEach(function (card) {
+          card.addEventListener("click", function (e) {
+            e.preventDefault();
+            var gal = card.getAttribute("data-gallery");
+            if (gal) {
+              var catKey = categoryFilters.find(function (k) {
+                return card.getAttribute("data-filter") === k;
+              });
+              if (catKey) { openUniCarousel(catKey, 0); return; }
+            }
+            openLightbox(card);
+          });
+        });
+
+        lbCloseBtn.addEventListener("click", closeLightbox);
+        lightbox.addEventListener("click", function (e) { if (e.target === lightbox) closeLightbox(); });
+
+        window.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") { closeLightbox(); closeUniCarousel(); }
+          if (!uniOpen) return;
+          if (e.key === "ArrowLeft") uniRender(uniCurrent - 1);
+          if (e.key === "ArrowRight") uniRender(uniCurrent + 1);
+        });
+
+        if ("IntersectionObserver" in window) {
+          var obs = new IntersectionObserver(function (entries, o) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.style.transitionDelay = (entry.target.getAttribute("data-delay") || 0) + "ms";
+                entry.target.classList.add("in");
+                o.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.14 });
+          cards.forEach(function (card, i) { card.setAttribute("data-delay", String(i * 100)); obs.observe(card); });
+        } else {
+          cards.forEach(function (card) { card.classList.add("in"); });
+        }
+      });
+    </script>
+  </body>
+</html>
