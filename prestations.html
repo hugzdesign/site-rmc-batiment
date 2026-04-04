@@ -24,7 +24,7 @@
       }
       * { box-sizing: border-box; }
       html, body { margin: 0; padding: 0; }
-      body { background: var(--bg); color: var(--dark); font-family: "DM Sans", sans-serif; }
+      body { background: var(--bg); color: var(--dark); font-family: "DM Sans", sans-serif; overflow-x: hidden; }
       a { color: inherit; text-decoration: none; }
       img { max-width: 100%; display: block; }
       .container { width: min(100% - 2rem, 1240px); margin-inline: auto; }
@@ -113,6 +113,7 @@
       .services-wrap {
         background: #fff;
         padding: 0 0 5rem;
+        overflow-x: hidden;
       }
       .services-nav {
         position: sticky;
@@ -195,10 +196,11 @@
       .service-title {
         margin: 0.2rem 0 0.65rem;
         font-family: "Bebas Neue", sans-serif;
-        font-size: 2.2rem;
+        font-size: clamp(1.8rem, 6vw, 2.2rem);
         color: #1a1a1a;
         letter-spacing: 0.02em;
         line-height: 1;
+        word-break: break-word;
       }
       .service-text {
         color: #6b6b6b;
