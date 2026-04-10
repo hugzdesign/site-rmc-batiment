@@ -719,7 +719,7 @@
           </button>
         </div>
         <div class="portfolio-dots" id="uniDots"></div>
-        <p class="portfolio-desc" id="uniDesc"></p>
+        <p class="portfolio-desc" id="uniDesc" style="display:none;"></p>
       </div>
     </div>
 
@@ -878,7 +878,7 @@
           var slide = uniSlides[uniCurrent];
           var req = uniCurrent;
           uniCounter.textContent = "Photo " + (uniCurrent + 1) + " / " + uniSlides.length;
-          uniDesc.textContent = slide.desc;
+          uniDesc.textContent = "";
           uniUpdateDots();
           uniPlaceholder.classList.remove("show");
           uniLoader.classList.add("show");
