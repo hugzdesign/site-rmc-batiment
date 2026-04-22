@@ -3,37 +3,352 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Politique de confidentialité | RMC Bâtiment</title>
-    <meta name="description" content="Politique de confidentialité et RGPD du site RMC Bâtiment." />
+    <title>Politique de confidentialité — RMC Bâtiment</title>
+    <meta name="robots" content="noindex" />
     <link rel="icon" href="assets/images/favicon-rmc-batiment.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Playfair+Display:wght@500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital@1&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
-    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      :root {
+        --bg-dark: #111111;
+        --bg-card: #1c1c1c;
+        --text-white: #ffffff;
+        --text-muted: #9a9a9a;
+        --accent: #b43320;
+        --border: rgba(255, 255, 255, 0.1);
+        --bg-light: #f5f4f0;
+        --anthracite: #1a1a1a;
+        --concrete: #6b6b6b;
+        --ocre: #C8692A;
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg-light);
+        color: var(--anthracite);
+        font-family: "DM Sans", sans-serif;
+        min-height: 100%;
+      }
+
+      a { color: inherit; text-decoration: none; }
+
+      .container {
+        width: min(100% - 2rem, 1320px);
+        margin-inline: auto;
+      }
+
+      /* ── Header ── */
+      .site-header {
+        position: fixed;
+        inset: 0 0 auto 0;
+        z-index: 50;
+        background: #1a1a1a;
+        border-bottom: 1px solid transparent;
+        transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+      }
+
+      .site-header.scrolled {
+        background: #1a1a1a;
+        border-color: var(--border);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      }
+
+      .header-inner {
+        min-height: 86px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .logo-mark {
+        display: inline-flex;
+        flex-direction: column;
+        line-height: 1;
+        color: #fff;
+      }
+
+      .logo-mark .logo-text {
+        display: inline-flex;
+        flex-direction: column;
+        line-height: 1;
+      }
+
+      .logo-mark .brand {
+        font-size: clamp(1.25rem, 2vw, 1.6rem);
+        letter-spacing: 0.08em;
+        font-weight: 500;
+      }
+
+      .logo-mark .tagline {
+        margin-top: 0.35rem;
+        font-size: 0.58rem;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        opacity: 0.86;
+      }
+
+      .main-nav ul {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .main-nav a {
+        position: relative;
+        font-size: 0.92rem;
+        letter-spacing: 0.04em;
+        font-weight: 500;
+        color: #fff;
+      }
+
+      .main-nav a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -0.35rem;
+        height: 1px;
+        background: #fff;
+        clip-path: inset(0 100% 0 0);
+        transition: clip-path 0.35s ease;
+      }
+
+      .main-nav a:hover::after { clip-path: inset(0 0 0 0); }
+
+      /* ── Hero ── */
+      .page-hero {
+        background: #1A1A1A;
+        padding-top: 86px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 300px;
+        text-align: center;
+      }
+
+      .page-hero .hero-inner {
+        padding: 60px 24px 50px;
+      }
+
+      .hero-surtitle {
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--ocre);
+        margin: 0 0 14px;
+        font-weight: 500;
+      }
+
+      .hero-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(2.2rem, 5vw, 3rem);
+        color: #fff;
+        margin: 0 0 20px;
+        line-height: 1.1;
+        letter-spacing: 0.02em;
+      }
+
+      .hero-bar {
+        width: 60px;
+        height: 3px;
+        background: var(--ocre);
+        margin: 0 auto;
+        border: none;
+      }
+
+      /* ── Content ── */
+      .legal-content {
+        background: var(--bg-light);
+        padding: 80px 24px;
+      }
+
+      .legal-inner {
+        max-width: 860px;
+        margin: 0 auto;
+      }
+
+      .legal-block {
+        padding-bottom: 40px;
+        margin-bottom: 40px;
+        border-bottom: 1px solid #E0E0E0;
+      }
+
+      .legal-block:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .legal-label {
+        font-family: "DM Sans", sans-serif;
+        text-transform: uppercase;
+        color: var(--ocre);
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        margin: 0 0 12px;
+        font-weight: 700;
+      }
+
+      .legal-subtitle {
+        font-family: "Bebas Neue", sans-serif;
+        color: #1A1A1A;
+        font-size: 1.6rem;
+        margin: 0 0 16px;
+        line-height: 1.2;
+        letter-spacing: 0.02em;
+      }
+
+      .legal-block p,
+      .legal-block ul {
+        font-family: "DM Sans", sans-serif;
+        color: #6B6B6B;
+        font-size: 0.95rem;
+        line-height: 1.8;
+        margin: 0 0 12px;
+      }
+
+      .legal-block ul {
+        padding-left: 1.4rem;
+      }
+
+      .legal-block li {
+        margin-bottom: 4px;
+      }
+
+      .legal-block a {
+        color: var(--ocre);
+        text-decoration: underline;
+      }
+
+      .to-complete {
+        background: #FFF3E0;
+        border-left: 3px solid var(--ocre);
+        padding: 12px 16px;
+        font-style: italic;
+        color: var(--ocre);
+        font-size: 0.95rem;
+        line-height: 1.8;
+        margin: 12px 0;
+        border-radius: 0 4px 4px 0;
+      }
+
+      .legal-date {
+        font-style: italic;
+        color: #6B6B6B;
+        font-size: 0.9rem;
+        margin-bottom: 40px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid #E0E0E0;
+      }
+
+      /* ── Footer ── */
+      .site-footer {
+        border-top: 1px solid var(--border);
+        background: #1a1a1a;
+        padding: 1.2rem 0;
+        color: #fff;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        text-align: center;
+      }
+
+      .footer-brand {
+        font-size: 1.1rem;
+        letter-spacing: 0.06em;
+      }
+
+      .footer-note, .footer-links a, .footer-meta { color: #9a9a9a; }
+
+      .footer-links {
+        display: grid;
+        gap: 0.8rem;
+        justify-content: center;
+      }
+
+      .footer-links-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        justify-content: center;
+      }
+
+      .footer-links a:hover { color: #ffffff; }
+
+      .footer-meta {
+        border-top: 1px solid var(--border);
+        margin-top: 1rem;
+        padding-top: 0.8rem;
+        font-size: 0.8rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 0.7rem;
+        text-align: center;
+      }
+
+      /* ── Reveal ── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(26px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 900px) {
+        .header-inner {
+          min-height: 80px;
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-start;
+          padding: 0.55rem 0;
+        }
+        .main-nav ul {
+          gap: 0.95rem;
+          flex-wrap: wrap;
+        }
+        .footer-meta {
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+        .page-hero { min-height: 250px; }
+      }
+    </style>
   </head>
   <body>
-    <header class="site-header">
+    <header class="site-header scrolled">
       <div class="container header-inner">
-        <a class="logo" href="index.html" aria-label="Accueil RMC Bâtiment">
-          <img src="assets/images/logo-rmc-batiment.png" alt="Logo RMC Bâtiment" />
+        <a href="index.html" class="logo-mark" aria-label="Accueil RMC Bâtiment">
+          <span class="logo-text">
+            <span class="brand">RMC BÂTIMENT</span>
+            <span class="tagline">MAÇONNERIE & RÉNOVATION</span>
+          </span>
         </a>
-        <button class="nav-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false">
-          <i class="fa-solid fa-bars"></i>
-        </button>
-        <nav class="main-nav" aria-label="Menu principal">
+        <nav class="main-nav" aria-label="Navigation principale">
           <ul>
-            <li><a href="index.html" data-page="accueil">Accueil</a></li>
-            <li><a href="a-propos.html" data-page="apropos">À propos</a></li>
-            <li><a href="prestations.html" data-page="prestations">Prestations</a></li>
-            <li><a href="realisations.html" data-page="realisations">Réalisations</a></li>
-            <li><a href="contacts.html" data-page="contact">Contacts</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="prestations.html">Prestations</a></li>
+            <li><a href="realisations.html">Réalisations</a></li>
+            <li><a href="contacts.html">Contacts</a></li>
           </ul>
         </nav>
       </div>
@@ -41,90 +356,127 @@
 
     <main>
       <section class="page-hero">
-        <div class="container reveal">
-          <h1>Politique de confidentialité (RGPD)</h1>
-          <p>Gestion des données personnelles collectées via les formulaires du site.</p>
+        <div class="hero-inner reveal">
+          <p class="hero-surtitle">Protection des données</p>
+          <h1 class="hero-title">Politique de confidentialité</h1>
+          <hr class="hero-bar" />
         </div>
       </section>
 
-      <section class="section">
-        <div class="container reveal">
-          <p><em>Dernière mise à jour : À compléter par RMC Bâtiment (date de mise en ligne du site)</em></p>
+      <section class="legal-content">
+        <div class="legal-inner">
 
-          <h2>1. Responsable du traitement</h2>
-          <p>Le responsable du traitement des données collectées sur le site rmc-batiment.fr est :</p>
-          <p><strong>RMC Bâtiment</strong><br>
-          À compléter par RMC Bâtiment (adresse)<br>
-          À compléter par RMC Bâtiment (téléphone)<br>
-          À compléter par RMC Bâtiment (email)</p>
+          <div class="legal-date reveal">
+            <div class="to-complete">Dernière mise à jour : À compléter par RMC Bâtiment (date de mise en ligne du site)</div>
+          </div>
 
-          <h2>2. Données collectées</h2>
-          <p>Dans le cadre de l'utilisation du site et du formulaire de contact, nous collectons les données suivantes :</p>
-          <ul>
-            <li>Nom et prénom</li>
-            <li>Adresse email</li>
-            <li>Numéro de téléphone</li>
-            <li>Message et description du projet</li>
-          </ul>
-          <p>Ces données sont collectées uniquement lorsque vous remplissez volontairement le formulaire de contact.</p>
+          <div class="legal-block reveal">
+            <p class="legal-label">Article 1</p>
+            <h2 class="legal-subtitle">Responsable du traitement</h2>
+            <p>Le responsable du traitement des données collectées sur le site rmc-batiment.fr est :</p>
+            <p><strong>RMC Bâtiment</strong></p>
+            <div class="to-complete">Adresse : À compléter par RMC Bâtiment</div>
+            <div class="to-complete">Téléphone : À compléter par RMC Bâtiment</div>
+            <div class="to-complete">Email : À compléter par RMC Bâtiment</div>
+          </div>
 
-          <h2>3. Finalité du traitement</h2>
-          <p>Les données collectées sont utilisées exclusivement pour :</p>
-          <ul>
-            <li>Répondre à vos demandes de contact</li>
-            <li>Établir des devis suite à vos demandes</li>
-            <li>Assurer le suivi de votre dossier</li>
-          </ul>
-          <p>Vos données ne sont en aucun cas utilisées à des fins commerciales, revendues ou transmises à des tiers sans votre consentement explicite.</p>
+          <div class="legal-block reveal">
+            <p class="legal-label">Article 2</p>
+            <h2 class="legal-subtitle">Données collectées</h2>
+            <p>Dans le cadre de l'utilisation du site et du formulaire de contact, nous collectons les données suivantes :</p>
+            <ul>
+              <li>Nom et prénom</li>
+              <li>Adresse email</li>
+              <li>Numéro de téléphone</li>
+              <li>Message et description du projet</li>
+            </ul>
+            <p>Ces données sont collectées uniquement lorsque vous remplissez volontairement le formulaire de contact.</p>
+          </div>
 
-          <h2>4. Base légale</h2>
-          <p>Le traitement de vos données est fondé sur :</p>
-          <ul>
-            <li>Votre consentement explicite lors de la soumission du formulaire</li>
-            <li>L'exécution de mesures précontractuelles (établissement de devis)</li>
-          </ul>
+          <div class="legal-block reveal">
+            <p class="legal-label">Article 3</p>
+            <h2 class="legal-subtitle">Finalité du traitement</h2>
+            <p>Les données collectées sont utilisées exclusivement pour :</p>
+            <ul>
+              <li>Répondre à vos demandes de contact</li>
+              <li>Établir des devis suite à vos demandes</li>
+              <li>Assurer le suivi de votre dossier</li>
+            </ul>
+            <p>Vos données ne sont en aucun cas utilisées à des fins commerciales, revendues ou transmises à des tiers sans votre consentement explicite.</p>
+          </div>
 
-          <h2>5. Durée de conservation</h2>
-          <p>Vos données personnelles sont conservées pendant une durée maximale de 3 ans à compter de votre dernière prise de contact, conformément aux recommandations de la CNIL.</p>
+          <div class="legal-block reveal">
+            <p class="legal-label">Article 4</p>
+            <h2 class="legal-subtitle">Base légale</h2>
+            <p>Le traitement de vos données est fondé sur :</p>
+            <ul>
+              <li>Votre consentement explicite lors de la soumission du formulaire</li>
+              <li>L'exécution de mesures précontractuelles (établissement de devis)</li>
+            </ul>
+          </div>
 
-          <h2>6. Destinataires des données</h2>
-          <p>Vos données sont destinées uniquement à RMC Bâtiment et ne sont pas transmises à des tiers, à l'exception du prestataire technique assurant la réception des formulaires (Formspree — politique de confidentialité disponible sur <a href="https://formspree.io" target="_blank" rel="noopener">formspree.io</a>).</p>
+          <div class="legal-block reveal">
+            <p class="legal-label">Article 5</p>
+            <h2 class="legal-subtitle">Durée de conservation</h2>
+            <p>Vos données personnelles sont conservées pendant une durée maximale de 3 ans à compter de votre dernière prise de contact, conformément aux recommandations de la CNIL.</p>
+          </div>
 
-          <h2>7. Vos droits</h2>
-          <p>Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez des droits suivants :</p>
-          <ul>
-            <li>Droit d'accès à vos données</li>
-            <li>Droit de rectification</li>
-            <li>Droit à l'effacement ("droit à l'oubli")</li>
-            <li>Droit à la limitation du traitement</li>
-            <li>Droit à la portabilité</li>
-            <li>Droit d'opposition</li>
-          </ul>
-          <p>Pour exercer ces droits, contactez-nous :<br>
-          <strong>Email :</strong> À compléter par RMC Bâtiment<br>
-          <strong>Courrier :</strong> À compléter par RMC Bâtiment</p>
-          <p>Vous disposez également du droit d'introduire une réclamation auprès de la <a href="https://www.cnil.fr" target="_blank" rel="noopener">CNIL</a>.</p>
+          <div class="legal-block reveal">
+            <p class="legal-label">Article 6</p>
+            <h2 class="legal-subtitle">Destinataires des données</h2>
+            <p>Vos données sont destinées uniquement à RMC Bâtiment et ne sont pas transmises à des tiers, à l'exception du prestataire technique assurant la réception des formulaires (Formspree — politique de confidentialité disponible sur <a href="https://formspree.io" target="_blank" rel="noopener">formspree.io</a>).</p>
+          </div>
 
-          <h2>8. Cookies</h2>
-          <p>Le site rmc-batiment.fr utilise des cookies techniques nécessaires au bon fonctionnement du site. Aucun cookie de tracking ou publicitaire n'est utilisé.</p>
-          <p>Types de cookies utilisés :</p>
-          <ul>
-            <li>Cookies de session (fonctionnement du site)</li>
-            <li>Cookie de consentement RGPD (mémorisation de votre choix)</li>
-          </ul>
-          <p>Vous pouvez à tout moment modifier vos préférences via le bandeau cookies présent sur le site, ou configurer votre navigateur pour refuser les cookies.</p>
+          <div class="legal-block reveal">
+            <p class="legal-label">Article 7</p>
+            <h2 class="legal-subtitle">Vos droits</h2>
+            <p>Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez des droits suivants :</p>
+            <ul>
+              <li>Droit d'accès à vos données</li>
+              <li>Droit de rectification</li>
+              <li>Droit à l'effacement ("droit à l'oubli")</li>
+              <li>Droit à la limitation du traitement</li>
+              <li>Droit à la portabilité</li>
+              <li>Droit d'opposition</li>
+            </ul>
+            <p>Pour exercer ces droits, contactez-nous :</p>
+            <div class="to-complete">Email : À compléter par RMC Bâtiment</div>
+            <div class="to-complete">Courrier : À compléter par RMC Bâtiment</div>
+            <p>Vous disposez également du droit d'introduire une réclamation auprès de la <a href="https://www.cnil.fr" target="_blank" rel="noopener">CNIL</a>.</p>
+          </div>
 
-          <h2>9. Sécurité</h2>
-          <p>RMC Bâtiment met en œuvre toutes les mesures techniques et organisationnelles appropriées pour protéger vos données contre tout accès non autorisé, perte ou divulgation.</p>
+          <div class="legal-block reveal">
+            <p class="legal-label">Article 8</p>
+            <h2 class="legal-subtitle">Cookies</h2>
+            <p>Le site rmc-batiment.fr utilise des cookies techniques nécessaires au bon fonctionnement du site. Aucun cookie de tracking ou publicitaire n'est utilisé.</p>
+            <p>Types de cookies utilisés :</p>
+            <ul>
+              <li>Cookies de session (fonctionnement du site)</li>
+              <li>Cookie de consentement RGPD (mémorisation de votre choix)</li>
+            </ul>
+            <p>Vous pouvez à tout moment modifier vos préférences via le bandeau cookies présent sur le site, ou configurer votre navigateur pour refuser les cookies.</p>
+          </div>
 
-          <h2>10. Modifications</h2>
-          <p>RMC Bâtiment se réserve le droit de modifier la présente politique de confidentialité à tout moment. Toute modification sera publiée sur cette page avec la date de mise à jour.</p>
+          <div class="legal-block reveal">
+            <p class="legal-label">Article 9</p>
+            <h2 class="legal-subtitle">Sécurité</h2>
+            <p>RMC Bâtiment met en œuvre toutes les mesures techniques et organisationnelles appropriées pour protéger vos données contre tout accès non autorisé, perte ou divulgation.</p>
+          </div>
 
-          <h2>11. Contact</h2>
-          <p>Pour toute question relative à cette politique de confidentialité :</p>
-          <p><strong>RMC Bâtiment</strong><br>
-          <strong>Email :</strong> À compléter par RMC Bâtiment<br>
-          <strong>Téléphone :</strong> À compléter par RMC Bâtiment</p>
+          <div class="legal-block reveal">
+            <p class="legal-label">Article 10</p>
+            <h2 class="legal-subtitle">Modifications</h2>
+            <p>RMC Bâtiment se réserve le droit de modifier la présente politique de confidentialité à tout moment. Toute modification sera publiée sur cette page avec la date de mise à jour.</p>
+          </div>
+
+          <div class="legal-block reveal">
+            <p class="legal-label">Article 11</p>
+            <h2 class="legal-subtitle">Contact</h2>
+            <p>Pour toute question relative à cette politique de confidentialité :</p>
+            <p><strong>RMC Bâtiment</strong></p>
+            <div class="to-complete">Email : À compléter par RMC Bâtiment</div>
+            <div class="to-complete">Téléphone : À compléter par RMC Bâtiment</div>
+          </div>
 
         </div>
       </section>
@@ -157,15 +509,23 @@
       </div>
     </footer>
 
-    <div class="cookie-banner" role="dialog" aria-live="polite" aria-label="Consentement cookies">
-      <strong>Gestion des cookies</strong>
-      <p>Ce site utilise des cookies pour améliorer votre expérience. Vous pouvez accepter ou refuser.</p>
-      <div class="cookie-actions">
-        <button class="btn btn-primary" type="button" data-cookie="accept">Accepter</button>
-        <button class="btn btn-secondary" type="button" data-cookie="reject">Refuser</button>
-      </div>
-    </div>
-
-    <script src="js/main.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var revealItems = document.querySelectorAll(".reveal");
+        if ("IntersectionObserver" in window && revealItems.length) {
+          var revealObserver = new IntersectionObserver(function (entries, obs) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("in");
+                obs.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.14 });
+          revealItems.forEach(function (item) { revealObserver.observe(item); });
+        } else {
+          revealItems.forEach(function (item) { item.classList.add("in"); });
+        }
+      });
+    </script>
   </body>
 </html>
