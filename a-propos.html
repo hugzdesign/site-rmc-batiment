@@ -27,7 +27,8 @@
 
       * { box-sizing: border-box; }
       html, body { margin: 0; padding: 0; }
-      body { font-family: "DM Sans", sans-serif; background: var(--bg); color: var(--dark); }
+      html { overflow-x: clip; }
+      body { font-family: "DM Sans", sans-serif; background: var(--bg); color: var(--dark); overflow-x: clip; }
       a { color: inherit; text-decoration: none; }
       img { max-width: 100%; display: block; }
       .container { width: min(100% - 2rem, 1240px); margin-inline: auto; }
@@ -159,11 +160,18 @@
         border-top: 3px solid #b43320;
         border-radius: 12px;
         padding: 32px;
+        min-width: 0;
         transition: transform 0.25s ease, border-top-color 0.25s ease;
       }
       .value-card:hover { transform: translateY(-4px); border-top-color: #b43320; }
       .icon { width: 30px; height: 30px; margin-bottom: 0.65rem; }
-      .value-card h3 { margin: 0 0 0.45rem; font-family: "Bebas Neue", sans-serif; font-size: 1.8rem; }
+      .value-card h3 {
+        margin: 0 0 0.45rem;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.8rem;
+        line-height: 1.15;
+        overflow-wrap: break-word;
+      }
       .value-card p { margin: 0; color: #d0d0d0; }
 
       #certifications { background: #f5f4f0; }
@@ -250,7 +258,21 @@
           gap: 0.95rem;
           flex-wrap: wrap;
         }
+        .logo-col {
+          width: 100%;
+          max-width: 100%;
+          flex-shrink: 1;
+        }
+        .logo-col img { max-width: 100%; }
         .footer-meta { flex-direction: column; justify-content: center; align-items: center; }
+      }
+
+      @media (max-width: 600px) {
+        .main-nav ul { gap: 0.5rem 0.7rem; }
+        .main-nav a { font-size: 0.84rem; }
+        .values-grid { gap: 0.75rem; }
+        .value-card { padding: 1.15rem; }
+        .value-card h3 { font-size: clamp(1rem, 3.2vw, 1.45rem); }
       }
     </style>
   </head>
